@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SkillSwap | Login</title><link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="auth-page">
+<div class="auth-shell">
+  <section class="hero-panel">
+    <div class="brand"><span class="brand-icon">S</span> SkillSwap</div>
+    <p class="eyebrow">NIT WARANGAL · STUDENT COMMUNITY</p>
+    <h1>Learn together.<br><span>Grow together.</span></h1>
+    <p class="hero-copy">Share what you know. Find the people who can help you with what comes next.</p>
+    <div class="hero-orbit"><div class="orbit-core">↗</div><span class="orbit-tag tag-one">DSA</span><span class="orbit-tag tag-two">Design</span><span class="orbit-tag tag-three">Java</span></div>
+  </section>
+  <main class="auth-card">
+    <div class="mobile-brand">✦ SkillSwap</div>
+    <p class="eyebrow">WELCOME BACK</p><h2>Sign in to your account</h2><p class="muted">Your next skill starts with one conversation.</p>
+    <div class="alert success" th:if="${success}" th:text="${success}"></div>
+    <div class="alert error" th:if="${error}" th:text="${error}"></div>
+    <form method="post" th:action="@{/login}">
+      <label>Student email</label><input type="email" name="email" placeholder="you@student.nitw.ac.in" required>
+      <label>Password</label><div class="password-wrap"><input id="password" type="password" name="password" placeholder="Enter your password" required><button type="button" class="show-pass" onclick="togglePassword('password',this)">Show</button></div>
+      <button class="primary-btn full" type="submit">Sign in <span>→</span></button>
+    </form>
+    <p class="auth-switch">New to SkillSwap? <a th:href="@{/register}">Create an account</a></p>
+    <p class="tiny-note">Use your verified NITW student email.</p>
+  </main>
+</div>
+<script th:src="@{/js/app.js}"></script>
+</body></html>
