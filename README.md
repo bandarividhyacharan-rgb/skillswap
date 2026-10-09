@@ -1,61 +1,62 @@
 # SkillSwap — NITW Student Skill Exchange
 
-A runnable Spring Boot + MySQL starter project for students to exchange skills.
+A student skill-exchange platform built using Spring Boot, Java, Thymeleaf, HTML, CSS, JavaScript, and Supabase PostgreSQL.
+
+## Features
+
+* Student registration and login
+* Email OTP verification
+* Student dashboard and profiles
+* Skills students can teach and want to learn
+* Skill-help requests
+* PostgreSQL database hosted on Supabase
+* BCrypt password hashing
 
 ## Requirements
-- Java 17 or newer
-- Maven 3.8+
-- MySQL 8+
 
-## 1. Create the database
-Open MySQL Workbench or the MySQL command line and run:
+* Java 17 or newer
+* Maven 3.8+
+* A Supabase account
+* Gmail SMTP credentials for email OTP delivery
 
-```sql
-CREATE DATABASE skillswap CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-```
+## Configuration
 
-## 2. Configure environment variables (recommended)
-The app reads database/mail settings from environment variables. Defaults are for local development only.
+Configure these environment variables before starting the application:
 
-**Windows PowerShell:**
+* `DB_PASSWORD` — Supabase database password
+* `MAIL_USERNAME` — Gmail address used to send OTP emails
+* `MAIL_APP_PASSWORD` — Gmail app password
+* `ADMIN_EMAIL` — administrator email address
+
+Never commit real passwords, app passwords, or other secrets to GitHub.
+
+## Run Locally on Windows PowerShell
+
+From the folder containing `pom.xml`, set your database password securely:
+
 ```powershell
-$env:DB_URL="jdbc:mysql://localhost:3306/skillswap"
-$env:DB_USERNAME="root"
-$env:DB_PASSWORD="YOUR_MYSQL_PASSWORD"
-$env:ADMIN_EMAIL="skillswap22343739@gmail.com"
+$env:DB_PASSWORD = Read-Host "Enter your Supabase database password"
 ```
 
-For real email OTP delivery, set a Gmail account that will SEND email and a Google App Password:
-```powershell
-$env:MAIL_USERNAME="your-sending-gmail@gmail.com"
-$env:MAIL_APP_PASSWORD="your-16-character-google-app-password"
-```
-Do not use your normal Gmail password. Do not share your app password. If mail variables are not configured, OTP is printed in the server terminal for local testing.
+If email OTP delivery is required, configure your Gmail environment variables too. Then start the application:
 
-## 3. Run the project
-Open PowerShell in this folder:
 ```powershell
 mvn spring-boot:run
 ```
-Then open http://localhost:8080
 
-## 4. Give friends access
-Sending the ZIP lets friends run their own local copy. Their local databases will be separate.
-For all friends to share the same accounts and data, deploy the app and a MySQL database to a server and share the deployed URL. Do not expose your laptop or database directly to the public internet.
+Open http://localhost:8080 in your browser.
 
-## Current included functionality
-- Student registration with official student email validation and OTP verification
-- B.Tech roll number format check (9 alphanumeric characters)
-- Branch, year, and course dropdowns
-- Login/logout with BCrypt password hashes and server-side session
-- Add teach/learn skills
-- Browse students and send skill-help requests
-- Accept/reject incoming requests
-- MySQL persistence for users, skills and requests
-- Admin email setting for future/admin tooling; the email address alone does not grant an admin role
-- Optional background music button (browser may require a user click)
+## Database
 
-## Notes
-- The email regex expects `@student.nitw.ac.in`; verify the exact official address format for your programme before using it outside B.Tech testing.
-- The OTP is time-limited and kept in memory in this starter version. Restarting the app clears pending OTPs. For production, use persistent hashed OTP records, rate limiting, HTTPS, CSRF protection, account recovery, and proper role-based admin provisioning.
-- Never commit passwords or mail app passwords to GitHub.
+The application is configured to connect to Supabase PostgreSQL. Ensure the required environment variables are configured and the database is accessible.
+
+## Deployment
+
+To let friends access the same website and accounts, deploy the Spring Boot application to a hosting service and configure its environment variables. The application and Supabase database must both be reachable from the deployed service.
+
+## Security
+
+* Do not upload credentials to GitHub.
+* Keep database passwords and Gmail app passwords in environment variables.
+* Use HTTPS for the public website.
+* Verify authentication, authorization, and OTP functionality before public release.
